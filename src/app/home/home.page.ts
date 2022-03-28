@@ -27,7 +27,7 @@ export class HomePage {
       this.database = db;
 
       // Create our initial schema
-      await db.executeSql('CREATE TABLE IF NOT EXISTS software(name, company, type, version)', [])
+      await db.executeSql('CREATE TABLE IF NOT EXISTS software(name, company, type, version)', []);
     } catch (e) {
       console.error('Unable to initialize database', e);
     }
@@ -36,7 +36,7 @@ export class HomePage {
   insert() {
     this.database.transaction((tx: DbTransaction) => {
       tx.executeSql('INSERT INTO software (name, company, type, version) VALUES (?,?,?,?)',
-        ['secure-storage', 'ionic', 'native', '2.0'], (tx, result) => {
+        ['secure-storage', 'ionic', 'native', '2.0'], (tx2, result) => {
 //          console.log('insertId: ' + result.insertId);  // New Id number
 //          console.log('rowsAffected: ' + result.rowsAffected);  // 1
         });
@@ -45,7 +45,7 @@ export class HomePage {
 
   select() {
     this.database.transaction(tx => {
-      tx.executeSql('SELECT * from software', [], (tx, result) => {
+      tx.executeSql('SELECT * from software', [], (tx2, result) => {
         // Rows is an array of results. Use zero-based indexing to access
         // each element in the result set: item(0), item(1), etc.
         // for (let i = 0; i < result.rows.length; i++) {
